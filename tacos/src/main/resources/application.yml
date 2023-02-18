@@ -16,10 +16,11 @@ spring:
   data:
     rest:
       base-path: /api
-  security:
-    user:
-      name: buzz
-      password: infinity
+
+  # security:
+  #   user:
+  #     name: buzz
+  #     password: infinity
 
 ---
 spring:
