@@ -1,7 +1,3 @@
-security:
-  user:
-    name: buzz
-    password: infinity
 
 taco:
   orders:
@@ -20,6 +16,10 @@ spring:
   data:
     rest:
       base-path: /api
+  security:
+    user:
+      name: buzz
+      password: infinity
 
 ---
 spring:
