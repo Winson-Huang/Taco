@@ -34,11 +34,11 @@ public class DesignTacoController {
     }
 
     @GetMapping("/{id}")
-    public Taco tacoById(@PathVariable("id") Long id) {
+    public ResponseEntity<Taco> tacoById(@PathVariable("id") Long id) {
         Optional<Taco> optTaco = tacoRepo.findById(id);
         if (optTaco.isPresent()) {
-            return optTaco.get();
+            return new ResponseEntity<>(optTaco.get(), HttpStatus.OK);
         }
-        return null;
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 }
