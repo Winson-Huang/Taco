@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
@@ -39,13 +38,16 @@ public class DesignTacoController {
     }
 
     @GetMapping("/recent")
-    public Resources<Resource<Taco>> recentTacos() {
+    public Resources<TacoResource> recentTacos() {
         PageRequest page = PageRequest.of(
             0, 12, Sort.by("createdAt").descending()
         );
         List<Taco> tacos = tacoRepo.findAll(page).getContent();
 
-        Resources<Resource<Taco>> recentResources = Resources.wrap(tacos);
+        List<TacoResource> tacoResources = new TacoResourceAssembler().toResources(tacos);
+        
+        Resources<TacoResource> recentResources = new Resources<>(tacoResources);
+
         recentResources.add(
             ControllerLinkBuilder.linkTo(
                 ControllerLinkBuilder.methodOn(DesignTacoController.class)
